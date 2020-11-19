@@ -35,10 +35,11 @@
         android:id="@+id/second_activity_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:backgroundTintMode="add"
         android:text="Continue without signing in"
-        android:visibility="visible"
-        tools:layout_editor_absoluteX="89dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="434dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

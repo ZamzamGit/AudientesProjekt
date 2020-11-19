@@ -21,6 +21,7 @@
         android:textColor="@android:color/white"
         android:textSize="50sp"
         android:textStyle="bold"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +34,7 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/roundbutton"
         android:text="Presets"
+
         app:layout_constraintBottom_toTopOf="@+id/HearingTestBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
@@ -46,6 +48,7 @@
         android:layout_marginBottom="201dp"
         android:background="@drawable/roundbutton"
         android:text="Hearing Test"
+        android:shadowColor=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"

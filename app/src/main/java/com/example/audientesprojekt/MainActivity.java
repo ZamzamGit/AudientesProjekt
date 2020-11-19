@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         secondActivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), Menu_Activity.class);
                 //Pass information to second screen test
                 startActivity(startIntent);
             }

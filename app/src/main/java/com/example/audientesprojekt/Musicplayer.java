@@ -1,0 +1,57 @@
+package com.example.audientesprojekt;
+
+import android.media.MediaPlayer;
+
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MusicPlayer extends AppCompatActivity {
+
+    // Instantiating the MediaPlayer class
+    MediaPlayer music;
+
+    @Override
+    protected void onCreate(
+            Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Adding the music file to our
+        //add 
+        music = MediaPlayer.create(this, R.raw.sound);
+    }
+
+    // Plaing the music
+    public void musicplay(View v)
+    {
+        music.start();
+    }
+
+    // Pausing the music
+    public void musicpause(View v)
+    {
+        music.pause();
+    }
+
+    // Stoping the music
+    public void musicstop(View v)
+    {
+        music.stop();
+        music
+                = MediaPlayer.create(
+                this, R.raw.sound);
+    }
+}
+public class Musicplayer {
+
+
+
+
+
+
+
+
+}

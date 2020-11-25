@@ -13,6 +13,7 @@
         <activity android:name=".Option_Activity" />
         <activity android:name=".Hearing_test_activity" />
         <activity android:name=".Preset_activity" />
+        <activity android:name=".Menu_Activity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

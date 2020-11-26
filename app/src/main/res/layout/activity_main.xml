@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:backgroundTintMode="add"
         android:textColor="#D92E30"
         android:text="Continue without signing in"

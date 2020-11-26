@@ -37,7 +37,9 @@
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginTop="112dp"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/actionBarItemBackground"
         android:background="@drawable/gradient_circle_button"
 
 

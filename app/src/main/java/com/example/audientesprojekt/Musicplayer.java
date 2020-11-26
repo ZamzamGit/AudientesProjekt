@@ -7,7 +7,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MusicPlayer extends AppCompatActivity {
+//har fjernet public fra klassenavnet
+class MusicPlayer extends AppCompatActivity {
 
     // Instantiating the MediaPlayer class
     MediaPlayer music;
@@ -21,7 +22,7 @@ public class MusicPlayer extends AppCompatActivity {
 
         // Adding the music file to our
         //add 
-        music = MediaPlayer.create(this, R.raw.sound);
+        //music = MediaPlayer.create(this, R.raw.sound);
     }
 
     // Plaing the music
@@ -35,7 +36,7 @@ public class MusicPlayer extends AppCompatActivity {
     {
         music.pause();
     }
-
+/*
     // Stoping the music
     public void musicstop(View v)
     {
@@ -44,14 +45,7 @@ public class MusicPlayer extends AppCompatActivity {
                 = MediaPlayer.create(
                 this, R.raw.sound);
     }
+
+ */
 }
-public class Musicplayer {
 
-
-
-
-
-
-
-
-}

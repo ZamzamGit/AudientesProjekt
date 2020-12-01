@@ -9,7 +9,14 @@
         android:id="@+id/presetFragment"
         android:name="com.example.audientesprojekt.PresetFragment"
         android:label="fragment_preset"
-        tools:layout="@layout/fragment_preset" />
+        tools:layout="@layout/fragment_preset" >
+        <action
+            android:id="@+id/action_presetFragment_to_hearinTestFragment"
+            app:destination="@id/hearinTestFragment" />
+        <action
+            android:id="@+id/action_presetFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/hearinTestFragment"
         android:name="com.example.audientesprojekt.HearinTestFragment"

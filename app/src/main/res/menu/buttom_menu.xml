@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/hearinTestFragment"
+        android:title="HearingTest"
+        android:icon="@drawable/ic_hearing_test"/>
+    <item
+        android:id="@+id/presetFragment"
+        android:title="Presets"
+        android:icon="@drawable/ic_preset"/>
+    <item
+        android:id="@+id/optionsFragment"
+        android:title="Options"
+        android:icon="@drawable/ic_options"/>
+</menu>

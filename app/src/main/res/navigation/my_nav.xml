@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/presetFragment">
+
+    <fragment
+        android:id="@+id/presetFragment"
+        android:name="com.example.audientesprojekt.PresetFragment"
+        android:label="fragment_preset"
+        tools:layout="@layout/fragment_preset" >
+        <action
+            android:id="@+id/action_presetFragment_to_hearinTestFragment"
+            app:destination="@id/hearinTestFragment" />
+        <action
+            android:id="@+id/action_presetFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hearinTestFragment"
+        android:name="com.example.audientesprojekt.HearinTestFragment"
+        android:label="fragment_hearin_test"
+        tools:layout="@layout/fragment_hearing_test" />
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="com.example.audientesprojekt.optionsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" />
+</navigation>

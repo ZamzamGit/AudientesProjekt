@@ -1,40 +1,49 @@
 package com.example.audientesprojekt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-    Button secondActivityBtn ;
-    Button loginButton ;
+public class MainActivity extends AppCompatActivity {
+    BottomNavigationView bottomViewnavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        secondActivityBtn = findViewById(R.id.second_activity_btn);
-        loginButton = findViewById(R.id.loginButton);
-        secondActivityBtn.setOnClickListener(this);
-        loginButton.setOnClickListener(this);
-
-
-
-
+        bottomViewnavigator = findViewById(R.id.bottomNavigationView);
+        bottomViewnavigator.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PresetFragment()).commit();
+        bottomViewnavigator.setSelectedItemId(R.id.presetFragment);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == secondActivityBtn){
-            Intent a = new Intent(this, Menu_Activity.class);
-            startActivity(a);
-        }else {
-            Intent a = new Intent(this, Menu_Activity.class);
-            startActivity(a);
-        }
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+
+                    switch (item.getItemId()) {
+                        case R.id.musicplayerFragment:
+                            selectedFragment = new musicplayerFragment();
+                            break;
+                        case R.id.hearinTestFragment:
+                            selectedFragment = new HearinTestFragment();
+                            break;
+                        case R.id.presetFragment:
+                            selectedFragment = new PresetFragment();
+                            break;
+                        case R.id.optionsFragment:
+                            selectedFragment = new optionsFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment, selectedFragment).commit();
+                    return true;
+                }
+            };
 }

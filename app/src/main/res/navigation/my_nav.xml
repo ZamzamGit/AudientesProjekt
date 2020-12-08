@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_presetFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
+        <action
+            android:id="@+id/action_presetFragment_to_musicplayerFragment"
+            app:destination="@id/musicplayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/hearinTestFragment"
@@ -27,4 +30,9 @@
         android:name="com.example.audientesprojekt.optionsFragment"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/musicplayerFragment"
+        android:name="com.example.audientesprojekt.musicplayerFragment"
+        android:label="fragment_music_player_"
+        tools:layout="@layout/fragment_music_player_" />
 </navigation>

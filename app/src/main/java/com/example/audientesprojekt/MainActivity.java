@@ -3,7 +3,6 @@ package com.example.audientesprojekt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -30,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
+                        case R.id.musicplayerFragment:
+                            selectedFragment = new musicplayerFragment();
+                            break;
                         case R.id.hearinTestFragment:
                             selectedFragment = new HearinTestFragment();
                             break;

@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
+                        case R.id.libraryFragment:
+                            selectedFragment = new libraryFragment();
+                            break;
                         case R.id.musicplayerFragment:
                             selectedFragment = new musicplayerFragment();
                             break;

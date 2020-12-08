@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/libraryFragment"
+        android:title="Library"
+        android:icon="@drawable/ic_library"/>
+    <item
     android:id="@+id/musicplayerFragment"
     android:title="Preset player"
     android:icon="@drawable/ic_baseline_play_circle_outline_24"/>

@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
     android:id="@+id/musicplayerFragment"
-    android:title="HearingTest"
+    android:title="Preset player"
     android:icon="@drawable/ic_baseline_play_circle_outline_24"/>
     <item
         android:id="@+id/hearinTestFragment"
-        android:title="HearingTest"
+        android:title="Hearing Test"
         android:icon="@drawable/ic_hearing_test"/>
     <item
         android:id="@+id/presetFragment"
-        android:title="Presets"
+        android:title="Preset"
         android:icon="@drawable/ic_preset"/>
     <item
         android:id="@+id/optionsFragment"

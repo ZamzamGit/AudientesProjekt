@@ -18,7 +18,7 @@ public class LibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        library = findViewById(R.id.librarytext);
-        listView = findViewById(R.id.listview);
+        library = findViewById(R.id.textView);
+        listView = findViewById(R.id.recyclerView);
     }
 }

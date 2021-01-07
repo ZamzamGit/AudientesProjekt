@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class libraryFragment extends Fragment {
+public class LibraryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

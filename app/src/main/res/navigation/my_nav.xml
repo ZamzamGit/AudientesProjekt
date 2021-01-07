@@ -33,17 +33,17 @@
         tools:layout="@layout/fragment_hearing_test" />
     <fragment
         android:id="@+id/optionsFragment"
-        android:name="com.example.audientesprojekt.optionsFragment"
+        android:name="com.example.audientesprojekt.OptionsFragment"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
     <fragment
         android:id="@+id/musicplayerFragment"
-        android:name="com.example.audientesprojekt.musicplayerFragment"
+        android:name="com.example.audientesprojekt.MusicPlayerFragment"
         android:label="fragment_music_player_"
         tools:layout="@layout/fragment_music_player_" />
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.example.audientesprojekt.libraryFragment"
+        android:name="com.example.audientesprojekt.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" />
 </navigation>

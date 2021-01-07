@@ -15,7 +15,7 @@ import android.view.ViewGroup;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class musicplayerFragment extends Fragment {
+public class MusicPlayerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

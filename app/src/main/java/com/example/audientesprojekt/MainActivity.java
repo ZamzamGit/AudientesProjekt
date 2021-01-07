@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.libraryFragment:
-                            selectedFragment = new libraryFragment();
+                            selectedFragment = new LibraryFragment();
                             break;
                         case R.id.musicplayerFragment:
-                            selectedFragment = new musicplayerFragment();
+                            selectedFragment = new MusicPlayerFragment();
                             break;
                         case R.id.hearinTestFragment:
                             selectedFragment = new HearinTestFragment();
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new PresetFragment();
                             break;
                         case R.id.optionsFragment:
-                            selectedFragment = new optionsFragment();
+                            selectedFragment = new OptionsFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment, selectedFragment).commit();

@@ -1,11 +1,16 @@
 package com.example.audientesprojekt;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,13 +24,14 @@ import android.media.MediaPlayer;
 
 import java.io.DataInputStream;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class musicplayerFragment extends Fragment implements View.OnClickListener {
+public class musicplayerFragment extends Fragment implements View.OnClickListener, ExampleBottomDialog.OnInputSelected {
 
     ImageView placeholderCover;
     SeekBar seekBar;
@@ -37,6 +43,7 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
     ImageView sleepTimerBtn;
     ImageView repeatBtn;
     MediaPlayer mediaPlayer;
+    private FragmentActivity main;
 
 
     Runnable runnable;
@@ -45,6 +52,7 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
     // TODO: 05-01-21  lav imageviews om til knapper så du kan pause, spolle frem og kører på repeat
     // TODO: 05-01-21 lav en menu til sleep timer, der popper op når man trykker på den, ligesom mofibos version 
     // TODO: 07-01-21 Skal lave en async thread der kan afpsille musikken i baggrunden
+
 
 
     @Nullable
@@ -110,33 +118,7 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
             });
 
 
-            forwardBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
-            backwardsBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            repeatBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            sleepTimerBtn.setOnClickListener(new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
 
 
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -208,15 +190,39 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
 
                 break;
             case R.id.sleepTimerButton:
-
+                ExampleBottomDialog bottomDialog = new ExampleBottomDialog();
+                bottomDialog.setTargetFragment(this, 1);
+                bottomDialog.show(getFragmentManager(),"exampleDialog");
                 break;
-
-
-
-
         }
     }
+
+    @Override
+    public void sendInput(String input) {
+        switch (input){
+            case "15 minutter":
+                handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(15));
+                break;
+            case "30 minutter":
+                handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(30));
+                break;
+            case "45 minutter":
+                handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(45));
+                break;
+            default:
+                long interVal = Integer.parseInt(input);
+                handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(interVal));
+                break;
         }
+    }
+
+    Runnable stopPlayerTask = new Runnable() {
+        @Override
+        public void run() {
+            mediaPlayer.pause();
+        }
+    };
+}
 
 
 

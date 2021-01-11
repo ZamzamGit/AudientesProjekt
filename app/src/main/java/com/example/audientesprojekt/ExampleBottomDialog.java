@@ -55,6 +55,7 @@ public class ExampleBottomDialog extends BottomSheetDialogFragment implements Ra
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
+
             selected = (OnInputSelected) getTargetFragment();
         } catch (ClassCastException e) {
         }
@@ -62,12 +63,6 @@ public class ExampleBottomDialog extends BottomSheetDialogFragment implements Ra
 
     @Override
     public void onClick(View v) {
-        /*input = editText.getText().toString();
-        if (!input.equals("")) {
-            selected.sendInput(input);
-            getDialog().dismiss();
-            Toast.makeText(getActivity(), "Lyden stopper om " + input + " minutter", Toast.LENGTH_SHORT).show();
-        }*/
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.one:
                 Toast.makeText(getActivity(), "Vælg venligst et tidspunkt" + input, Toast.LENGTH_SHORT).show();
@@ -97,7 +92,7 @@ public class ExampleBottomDialog extends BottomSheetDialogFragment implements Ra
                     getDialog().dismiss();
                     Toast.makeText(getActivity(), "Afspilleren stopper om " + input + " minutter", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Vælg venligst et tidspunkt ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Indtast venligst et tidspunkt ", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -113,38 +108,6 @@ public class ExampleBottomDialog extends BottomSheetDialogFragment implements Ra
                     .setDuration(shortAnimationDuration)
                     .setListener(null);
         }
-
-        /*switch (group.getCheckedRadioButtonId()) {
-            case R.id.one:
-                input = rb1.getText().toString();
-                rb1.setChecked(true);
-                selected.sendInput(input);
-                getDialog().dismiss();
-                Toast.makeText(getActivity(), "Lyden stopper om " + input, Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.two:
-                input = rb2.getText().toString();
-                rb2.setChecked(true);
-                selected.sendInput(input);
-                getDialog().dismiss();
-                Toast.makeText(getActivity(), "Lyden stopper om " + input, Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.three:
-                input = rb3.getText().toString();
-                rb3.setChecked(true);
-                selected.sendInput(input);
-                getDialog().dismiss();
-                Toast.makeText(getActivity(), "Lyden stopper om " + input, Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.four:
-                input = rb4.getText().toString();
-                rb4.setChecked(true);
-                selected.sendInput(input);
-                getDialog().dismiss();
-                Toast.makeText(getActivity(), "Lyden stopper om " + input, Toast.LENGTH_SHORT).show();
-                break;
-            }
-        }*/
     }
 }
 

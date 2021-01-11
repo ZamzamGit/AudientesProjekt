@@ -32,7 +32,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener, Exa
     public void onClick(View v) {
         ExampleBottomDialog bottomDialog = new ExampleBottomDialog();
         bottomDialog.setTargetFragment(this, 1);
-        bottomDialog.show(getFragmentManager(),"exampleDialog");
+        bottomDialog.show(getActivity().getSupportFragmentManager(), "exampleDialog");
 
     }
 
@@ -40,7 +40,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener, Exa
     public void sendInput(String input) {
         switch (input){
             case "15 minutter":
-                handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(15));
+                handler.postDelayed(stopPlayerTask, TimeUnit.SECONDS.toMillis(2));
                 break;
             case "30 minutter":
                 handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(30));

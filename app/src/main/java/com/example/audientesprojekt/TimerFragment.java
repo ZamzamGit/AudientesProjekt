@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 public class TimerFragment extends Fragment implements View.OnClickListener, ExampleBottomDialog.OnInputSelected {
     private Button open;
-    private TextView textView;
     private MediaPlayer mp;
     private Handler handler;
     @Nullable
@@ -25,7 +23,6 @@ public class TimerFragment extends Fragment implements View.OnClickListener, Exa
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sleep_timer, container, false);
         open = v.findViewById(R.id.button);
-        textView = v.findViewById(R.id.output);
         open.setOnClickListener(this);
         handler = new Handler();
         return v;
@@ -43,19 +40,15 @@ public class TimerFragment extends Fragment implements View.OnClickListener, Exa
     public void sendInput(String input) {
         switch (input){
             case "15 minutter":
-                textView.setText(input);
                 handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(15));
                 break;
             case "30 minutter":
-                textView.setText(input);
                 handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(30));
                 break;
             case "45 minutter":
-                textView.setText(input);
                 handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(45));
                 break;
             default:
-                textView.setText(input + " minutter");
                 long interVal = Integer.parseInt(input);
                 handler.postDelayed(stopPlayerTask, TimeUnit.MINUTES.toMillis(interVal));
                 break;

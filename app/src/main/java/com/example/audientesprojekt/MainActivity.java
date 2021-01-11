@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         secondActivityBtn = findViewById(R.id.second_activity_btn);
-        loginButton = findViewById(R.id.loginButton);
+        //loginButton = findViewById(R.id.loginButton);
         secondActivityBtn.setOnClickListener(this);
         loginButton.setOnClickListener(this);
 

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new MusicPlayerFragment();
                             break;
                         case R.id.hearinTestFragment:
-                            selectedFragment = new HearinTestFragment();
+                            selectedFragment = new HearingTestFragment();
                             break;
                         case R.id.presetFragment:
                             selectedFragment = new PresetFragment();

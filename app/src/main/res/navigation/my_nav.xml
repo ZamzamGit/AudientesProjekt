@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/hearinTestFragment"
-        android:name="com.example.audientesprojekt.HearinTestFragment"
+        android:name="com.example.audientesprojekt.HearingTestFragment"
         android:label="fragment_hearin_test"
         tools:layout="@layout/fragment_hearing_test" />
     <fragment

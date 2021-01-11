@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Menu_Activity extends AppCompatActivity implements View.OnClickListener{
+public class Menu_Activity extends AppCompatActivity implements View.OnClickListener {
 
-/*
-    Button continueToPresets = (Button) findViewById(R.id.presetBtn);
-    Button continueToHearingTest = (Button) findViewById(R.id.HearingTestBtn);
-    Button continueToOptions = (Button) findViewById(R.id.second_activity_btn);
+    /*
+        Button continueToPresets = (Button) findViewById(R.id.presetBtn);
+        Button continueToHearingTest = (Button) findViewById(R.id.HearingTestBtn);
+        Button continueToOptions = (Button) findViewById(R.id.second_activity_btn);
 
 
- */
+     */
     Button continueToPresets, continueToHearingTest, continueToOptions;
 
 
@@ -62,20 +62,10 @@ public class Menu_Activity extends AppCompatActivity implements View.OnClickList
 
  */
     }
-    @Override
-    public void onClick(View view){
-        if(view == continueToPresets){
-            Intent i = new Intent(this,Preset_activity.class);
-            startActivity(i);
-        }
-        else if(view == continueToHearingTest){
-            Intent i = new Intent(this,Hearing_test_activity.class);
-            startActivity(i);
-        }
-        else if(view == continueToOptions){
-            Intent i = new Intent(this,Option_Activity.class);
-            startActivity(i);
-        }
-    }
 
+    @Override
+    public void onClick(View view) {
+
+
+    }
 }

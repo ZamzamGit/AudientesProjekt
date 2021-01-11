@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".Option_Activity">
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:id="@+id/textView"

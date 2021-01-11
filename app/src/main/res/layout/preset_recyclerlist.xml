@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp"
+    app:cardCornerRadius="1dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    android:layout_margin="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="93dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background">
+
+        <Button
+            android:id="@+id/presetButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_circle_button2">
+        </Button>
+
+        <TextView
+            android:id="@+id/presetName"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/presetButton"
+            android:layout_marginTop="1dp"
+            android:text="Preset"
+            android:textAlignment="center"
+            android:textColor="@android:color/white">
+
+        </TextView>
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

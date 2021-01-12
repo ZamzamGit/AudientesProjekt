@@ -40,7 +40,7 @@
         android:id="@+id/musicplayerFragment"
         android:name="com.example.audientesprojekt.MusicPlayerFragment"
         android:label="fragment_music_player_"
-        tools:layout="@layout/fragment_music_player_" />
+        tools:layout="@layout/fragment_music_player" />
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.example.audientesprojekt.LibraryFragment"

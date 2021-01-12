@@ -9,12 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".library_activity"></activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Music_Player_activity" />
-        <activity android:name=".Option_Activity" />
-        <activity android:name=".Hearing_test_activity" />
-        <activity android:name=".Preset_activity" />
         <activity android:name=".Menu_Activity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class musicplayerFragment extends Fragment implements View.OnClickListener, ExampleBottomDialog.OnInputSelected {
+public class MusicPlayerFragment extends Fragment implements View.OnClickListener, ExampleBottomDialog.OnInputSelected {
 
     ImageView placeholderCover;
     SeekBar seekBar;
@@ -111,13 +111,11 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
             @Override
             public void onPrepared(MediaPlayer mp) {
                 seekBar.setMax(mp.getDuration());
-                mp.start();
+                //mp.start();
                 updateSeekbar();
             }
 
             });
-
-
 
 
 

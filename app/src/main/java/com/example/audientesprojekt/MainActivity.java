@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.libraryFragment:
-                            selectedFragment = new libraryFragment();
+                            selectedFragment = new LibraryFragment();
                             break;
                         case R.id.musicplayerFragment:
                             selectedFragment = new musicplayerFragment();

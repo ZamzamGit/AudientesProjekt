@@ -2,17 +2,23 @@ package com.example.audientesprojekt.Database;
 
 public class sound_bits {
 
-    String mediaid = "";
-    String songUrl = "";
-    String title = "";
+    String mediaid,title,songUrl;
 
 
+public String getTitle() {
+    return title;
+}
 
-    public static void main(String[] args) {
+    public void setTitle(String title) {
+        title = title;
+    }
 
+    public String getMediaid() {
+        return mediaid;
+    }
 
-
-
-
+    public String getSongUrl() {
+        return songUrl;
     }
 }
+

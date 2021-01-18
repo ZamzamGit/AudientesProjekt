@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.audientesprojekt.R;
-import com.example.audientesprojekt.downloadFragment;
+import com.example.audientesprojekt.DownloadFragment;
 
 import java.util.ArrayList;
 
 public class MyFirebaseAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
-    downloadFragment downloadFragment;
+    DownloadFragment downloadFragment;
     ArrayList<sound_bits> sound_bitsArrayList;
 
-    public MyFirebaseAdapter(com.example.audientesprojekt.downloadFragment downloadFragment) {
+    public MyFirebaseAdapter(DownloadFragment downloadFragment) {
         this.downloadFragment = downloadFragment;
     }
 
@@ -42,6 +42,7 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         // det her fungerer ikke hvad sker der for getItemId
         holder.sampleTitle.setText(sound_bits.get);
+        holder.
 
 
     }

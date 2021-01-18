@@ -18,7 +18,7 @@
         android:title="Preset"
         android:icon="@drawable/ic_preset"/>
     <item
-        android:id="@+id/optionsFragment"
-        android:title="Options"
-        android:icon="@drawable/ic_options"/>
+        android:id="@+id/downloadFragment"
+        android:title="Downloads"
+        android:icon="@drawable/ic_download"/>
 </menu>

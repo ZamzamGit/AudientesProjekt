@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.presetFragment:
                             selectedFragment = new PresetFragment();
                             break;
-                        case R.id.optionsFragment:
-                            selectedFragment = new OptionsFragment();
+                        case R.id.downloadFragment:
+                            selectedFragment = new DownloadFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment, selectedFragment).commit();

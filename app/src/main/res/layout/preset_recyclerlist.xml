@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
     app:cardMaxElevation="0dp"
@@ -10,33 +10,40 @@
     app:cardPreventCornerOverlap="false"
     android:layout_margin="5dp">
 
-
     <RelativeLayout
-        android:layout_width="93dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background">
 
-        <Button
-            android:id="@+id/presetButton"
+        <ImageView
+            android:id="@+id/audioImage"
             android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            app:backgroundTint="@null"
-            android:background="@drawable/gradient_circle_button2">
-        </Button>
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="60dp"
+            android:src="@drawable/cover_placeholder">
+        </ImageView>
 
         <TextView
-            android:id="@+id/presetName"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/presetButton"
-            android:layout_marginTop="1dp"
-            android:text="Preset"
+            android:id="@+id/audioName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/white"
+            android:text="TextView"
+            android:textSize="20dp"
             android:textAlignment="center"
-            android:textColor="@android:color/white">
-
+            android:layout_marginTop="22dp">
         </TextView>
+
+        <ImageView
+            android:id="@+id/audioDelete"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/deleteimage">
+        </ImageView>
+
 
 
     </RelativeLayout>

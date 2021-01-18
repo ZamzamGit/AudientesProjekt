@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
+import zeroonezero.android.audio_mixer.AudioMixer;
+
+/**≠≠≠≠≠≠
  * A simple {@link Fragment} subclass.
  * Use the  factory method to
  * create an instance of this fragment.
@@ -35,18 +38,16 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
 
         presetRecyclerView = v.findViewById(R.id.presetRecyclerView);
         noPresetText = v.findViewById(R.id.noPresetText);
-        addPreset = v.findViewById(R.id.addPresetBtn);
+        addPreset = v.findViewById(R.id.addSoundBtn);
 
         presetRecyclerView.setHasFixedSize(true);
-        presetRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        presetRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         presets = new ArrayList<>();
 
         adapter = new PresetRecAdapter(presets);
         presetRecyclerView.setAdapter(adapter);
         addPreset.setOnClickListener(this);
-
         return v;
-
     }
 
     @Override

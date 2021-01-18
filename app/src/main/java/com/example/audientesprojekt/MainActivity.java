@@ -10,7 +10,8 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottomViewnavigator;
+
+    private BottomNavigationView bottomViewnavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         bottomViewnavigator.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PresetFragment()).commit();
         bottomViewnavigator.setSelectedItemId(R.id.presetFragment);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

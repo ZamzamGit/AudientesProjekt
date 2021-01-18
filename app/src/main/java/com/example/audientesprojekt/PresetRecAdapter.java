@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,8 +32,15 @@ public class PresetRecAdapter extends RecyclerView.Adapter<PresetRecAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Preset preset = presets.get(position);
-        holder.presetName.setText(preset.getPresetName());
+        final Preset preset = presets.get(position);
+        holder.audioName.setText(preset.getPresetName());
+        holder.audioDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presets.remove(preset);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -42,13 +51,15 @@ public class PresetRecAdapter extends RecyclerView.Adapter<PresetRecAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private Button presetBtn;
-        private TextView presetName;
+        private ImageView audioImage;
+        private TextView audioName;
+        private ImageView audioDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            presetBtn = itemView.findViewById(R.id.presetButton);
-            presetName = itemView.findViewById(R.id.presetName);
+            audioImage = itemView.findViewById(R.id.audioImage);
+            audioName = itemView.findViewById(R.id.audioName);
+            audioDelete = itemView.findViewById(R.id.audioDelete);
         }
     }
 }

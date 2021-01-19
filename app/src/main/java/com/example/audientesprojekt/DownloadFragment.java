@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.audientesprojekt.Database.MyFirebaseAdapter;
-import com.example.audientesprojekt.Database.sound_bits;
+import com.example.audientesprojekt.Database.SoundBits;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -26,68 +26,50 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class DownloadFragment extends Fragment implements  {
+public class DownloadFragment extends Fragment {
 
-    FirebaseFirestore db;
-    RecyclerView mRecyclerView;
-    ArrayList<sound_bits> sound_bitsArrayList = new ArrayList<>();
-    MyFirebaseAdapter myFirebaseAdapter;
-    View v;
-
+    private FirebaseFirestore db;
+    private RecyclerView fieBaseRecycler;
+    private ArrayList<SoundBits> soundsBitsList = new ArrayList<>();
+    private MyFirebaseAdapter myFirebaseAdapter;
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_download, container, false);
+        View v = inflater.inflate(R.layout.fragment_download, container, false);
 
-        db=FirebaseFirestore.getInstance();
-
-        setUpRV();
+        db= FirebaseFirestore.getInstance();
+        fieBaseRecycler = v.findViewById(R.id.fireBaseRecycler);
+        fieBaseRecycler.setHasFixedSize(true);
+        fieBaseRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         setUpFB();
         dataFromFirebase();
-
-
-        downloadFile();
-
 
         return v;
     }
 
-    private void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
-
-        DownloadManager downloadManager =(DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse(url);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
-
-        downloadManager.enqueue(request);
-
-    }
     private void dataFromFirebase() {
-        if(sound_bitsArrayList.size()>0)
-            sound_bitsArrayList.clear();
+        if(soundsBitsList.size()>0)
+            soundsBitsList.clear();
 
-        //db=FirebaseFirestore.getInstance();
-
-        db.collection("files")
+        db.collection("samples")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(DocumentSnapshot documentSnapshot: task.getResult()) {
 
-                            sound_bits= new sound_bits(documentSnapshot.getString("name"),
-                                    documentSnapshot.getString("link"));
-                            sound_bitsArrayList.add(sound_bits);
+
+                            SoundBits soundBits= new SoundBits(documentSnapshot.getString("mediaid"), documentSnapshot.getString("title"),
+                                    documentSnapshot.getString("songUrl"));
+
+                            soundsBitsList.add(soundBits);
 
                         }
 
-                        myFirebaseAdapter= new MyFirebaseAdapter(this,sound_bitsArrayList);
-                        mRecyclerView.setAdapter(myFirebaseAdapter);
+                        myFirebaseAdapter= new MyFirebaseAdapter(soundsBitsList);
+                        fieBaseRecycler.setAdapter(myFirebaseAdapter);
                     }
                 })
 
@@ -105,19 +87,6 @@ public class DownloadFragment extends Fragment implements  {
     private void setUpFB(){
         db=FirebaseFirestore.getInstance();
     }
-
-    private void setUpRV(){
-        mRecyclerView= v.findViewById();
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-
-
-
-
-
-
 }
 
 

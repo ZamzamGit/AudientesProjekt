@@ -14,9 +14,6 @@
             android:id="@+id/action_presetFragment_to_hearinTestFragment"
             app:destination="@id/hearinTestFragment" />
         <action
-            android:id="@+id/action_presetFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
-        <action
             android:id="@+id/action_presetFragment_to_musicplayerFragment"
             app:destination="@id/musicplayerFragment" />
         <action
@@ -31,11 +28,6 @@
         android:name="com.example.audientesprojekt.HearingTestFragment"
         android:label="fragment_hearin_test"
         tools:layout="@layout/fragment_hearing_test" />
-    <fragment
-        android:id="@+id/optionsFragment"
-        android:name="com.example.audientesprojekt.OptionsFragment"
-        android:label="fragment_options"
-        tools:layout="@layout/fragment_options" />
     <fragment
         android:id="@+id/musicplayerFragment"
         android:name="com.example.audientesprojekt.MusicPlayerFragment"

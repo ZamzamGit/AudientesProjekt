@@ -48,6 +48,10 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
         holder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
                 /*
                 downloadFile(holder.sampleTitle.getContext(),
                         soundsBitsList.get(position).getTitle(),

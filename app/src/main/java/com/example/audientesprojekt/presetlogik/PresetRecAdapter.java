@@ -1,25 +1,27 @@
-package com.example.audientesprojekt;
-
+package com.example.audientesprojekt.presetlogik;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.audientesprojekt.R;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class PresetRecAdapter extends RecyclerView.Adapter<PresetRecAdapter.ViewHolder> {
 
-    private ArrayList<Preset> presets;
+    private ArrayList<SoundInput> soundInputs;
+    private Context context;
 
 
-    public PresetRecAdapter(ArrayList<Preset> presets) {
-        this.presets = presets;
+    public PresetRecAdapter(Context context, ArrayList<SoundInput> presets) {
+        this.context = context;
+        this.soundInputs = presets;
     }
 
     @NonNull
@@ -31,13 +33,17 @@ public class PresetRecAdapter extends RecyclerView.Adapter<PresetRecAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Preset preset = presets.get(position);
-        holder.audioName.setText(preset.getPresetName());
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final SoundInput preset = soundInputs.get(position);
+        holder.audioName.setText(preset.getSoundName());
         holder.audioDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presets.remove(preset);
+                soundInputs.remove(preset);
+                Gson gson = new Gson();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                preferences.edit().remove("sounds").apply();
+                preferences.edit().putString("sounds", gson.toJson(soundInputs)).apply();
                 notifyDataSetChanged();
             }
         });
@@ -45,7 +51,7 @@ public class PresetRecAdapter extends RecyclerView.Adapter<PresetRecAdapter.View
 
     @Override
     public int getItemCount() {
-        return presets.size();
+        return soundInputs.size();
     }
 
 

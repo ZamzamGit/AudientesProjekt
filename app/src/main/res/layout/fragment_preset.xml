@@ -56,19 +56,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/noPresetText"
-        android:layout_width="165dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="108dp"
-        android:text="No presets yet"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/presetRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/addSoundBtn"
         android:layout_width="170dp"

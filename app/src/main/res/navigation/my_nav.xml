@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_presetFragment_to_libraryFragment2"
             app:destination="@id/libraryFragment" />
+        <action
+            android:id="@+id/action_presetFragment_to_downloadFragment3"
+            app:destination="@id/downloadFragment3" />
     </fragment>
     <fragment
         android:id="@+id/hearinTestFragment"
@@ -38,4 +41,9 @@
         android:name="com.example.audientesprojekt.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" />
+    <fragment
+        android:id="@+id/downloadFragment3"
+        android:name="com.example.audientesprojekt.DownloadFragment"
+        android:label="fragment_download"
+        tools:layout="@layout/fragment_download" />
 </navigation>

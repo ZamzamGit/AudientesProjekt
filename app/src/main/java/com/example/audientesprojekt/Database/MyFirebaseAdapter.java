@@ -1,6 +1,7 @@
 package com.example.audientesprojekt.Database;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,15 @@ import com.example.audientesprojekt.R;
 import com.example.audientesprojekt.DownloadFragment;
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.MyViewHolder> {
 
     private ArrayList<SoundBits> soundsBitsList;
+    private MediaPlayer mediaPlayer = null;
+    private Button oldHolder = null;
+
 
     public MyFirebaseAdapter(ArrayList<SoundBits> sound_bitsArrayList) {
         this.soundsBitsList = sound_bitsArrayList;
@@ -34,20 +39,21 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        SoundBits soundBits = soundsBitsList.get(position);
+        final SoundBits soundBits = soundsBitsList.get(position);
 
         holder.sampleTitle.setText(soundBits.getTitle());
 
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // funktion
+                    playSound(holder, soundBits);
             }
         });
 
         holder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
 
 
@@ -61,6 +67,60 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
             }
         });
 
+    }
+
+    public void playSound(final MyViewHolder holder, SoundBits soundBits) {
+
+        if (oldHolder != null && oldHolder != holder.playButton ){
+            oldHolder.setText("Play");
+            if(mediaPlayer != null){
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+        }
+
+
+        oldHolder = holder.playButton;
+
+        if(mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+        }
+
+        if(mediaPlayer.isPlaying()) {
+           holder.playButton.setText("Play");
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        } else {
+            try {
+                mediaPlayer.setDataSource(soundBits.getSongUrl());
+                mediaPlayer.prepareAsync();
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                            holder.playButton.setText("Stop");
+                            mediaPlayer.start();
+
+
+                    }
+                });
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        holder.playButton.setText("Play");
+                        mediaPlayer.reset();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
@@ -79,7 +139,7 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
         return soundsBitsList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView sampleTitle;
         Button playButton, downloadButton;

@@ -21,7 +21,8 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
 
     private ArrayList<SoundBits> soundsBitsList;
     private MediaPlayer mediaPlayer = null;
-    private boolean isClicked = false;
+    private Button oldHolder = null;
+
 
     public MyFirebaseAdapter(ArrayList<SoundBits> sound_bitsArrayList) {
         this.soundsBitsList = sound_bitsArrayList;
@@ -70,12 +71,25 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
 
     public void playSound(final MyViewHolder holder, SoundBits soundBits) {
 
+        if (oldHolder != null && oldHolder != holder.playButton ){
+            oldHolder.setText("Play");
+            if(mediaPlayer != null){
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+        }
+
+
+        oldHolder = holder.playButton;
+
         if(mediaPlayer == null) {
             mediaPlayer = new MediaPlayer();
         }
 
         if(mediaPlayer.isPlaying()) {
-            holder.playButton.setText("Play");
+           holder.playButton.setText("Play");
             mediaPlayer.stop();
             mediaPlayer.reset();
             mediaPlayer.release();
@@ -87,8 +101,10 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
-                        holder.playButton.setText("Stop");
-                        mediaPlayer.start();
+                            holder.playButton.setText("Stop");
+                            mediaPlayer.start();
+
+
                     }
                 });
 

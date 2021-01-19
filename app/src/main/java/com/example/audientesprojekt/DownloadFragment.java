@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -58,11 +59,11 @@ public class DownloadFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot documentSnapshot: task.getResult()) {
+                        for(QueryDocumentSnapshot querySnapshot: task.getResult()) {
 
 
-                            SoundBits soundBits= new SoundBits(documentSnapshot.getString("mediaid"), documentSnapshot.getString("title"),
-                                    documentSnapshot.getString("songUrl"));
+                            SoundBits soundBits= new SoundBits(querySnapshot.getString("mediaid"), querySnapshot.getString("title"),
+                                    querySnapshot.getString("songUrl"));
 
                             soundsBitsList.add(soundBits);
 

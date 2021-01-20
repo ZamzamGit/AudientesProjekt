@@ -87,10 +87,6 @@ public class LibraryFragment extends Fragment implements AdapterView.OnItemClick
         MusicPlayerFragment musicPlayerFragment = new MusicPlayerFragment();
         musicPlayerFragment.setArguments(bundle);
 
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment, musicPlayerFragment)
-                .addToBackStack(null)
-                .commit();
-
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, musicPlayerFragment).commit();
     }
 }

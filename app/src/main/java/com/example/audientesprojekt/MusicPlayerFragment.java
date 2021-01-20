@@ -89,9 +89,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
                     myMediaPlayer.reset();
                     myMediaPlayer = null;
                 }
-
-
-
             }
         });
         pausePlayBtn.setOnClickListener(this);
@@ -233,7 +230,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
                 handler.postDelayed(runnable, 1000);
             }
         }
-
     }
 
 

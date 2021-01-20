@@ -18,6 +18,8 @@ import com.example.audientesprojekt.librarylogic.LibraryFile;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
+import io.sentry.Sentry;
+
 public class LibraryFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ArrayList<LibraryFile> libraryFiles;
@@ -30,6 +32,11 @@ public class LibraryFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_library,container,false);
+        try {
+            throw new Exception("This is a test.");
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        }
 
         tabLayout = v.findViewById(R.id.tablayout);
         libraryList = v.findViewById(R.id.libraryList);

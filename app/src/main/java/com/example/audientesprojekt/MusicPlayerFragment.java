@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import io.sentry.Sentry;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +52,9 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class MusicPlayerFragment extends Fragment implements View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, ExampleBottomDialog.OnInputSelected {
+
+
+
 
     private ImageView placeholderCover;
     private SeekBar seekBar;
@@ -76,6 +81,12 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_music_player, container, false);
+
+        try {
+            throw new Exception("This is a test.");
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        }
         myMediaPlayer = new MediaPlayer();
         placeholderCover = (ImageView) v.findViewById(R.id.cover_Placeholder);;
         totalTime = v.findViewById(R.id.totalTime);

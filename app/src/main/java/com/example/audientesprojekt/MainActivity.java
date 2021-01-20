@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import io.sentry.Sentry;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomViewnavigator;
@@ -13,6 +15,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            throw new Exception("This is a test.");
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        }
         setContentView(R.layout.activity_main);
         bottomViewnavigator = findViewById(R.id.bottomNavigationView);
         bottomViewnavigator.setOnNavigationItemSelectedListener(navListener);

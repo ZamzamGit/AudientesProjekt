@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity;
 
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.media.MediaPlayer;
+
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,6 +55,8 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
     private ArrayList<File> mySongs;
     private FragmentActivity main;
     NotificationManager notificationManager;
+    BottomNavigationItemView bottomNav;
+
 
 
     Runnable runnable;
@@ -78,6 +83,7 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
 
 
         placeholderCover = (ImageView) v.findViewById(R.id.cover_Placeholder);
+        bottomNav = v.findViewById(R.id.bottomNavigationView);
         totalTime = v.findViewById(R.id.totalTime);
         startTime = v.findViewById(R.id.startTime);
         titleOfPreset = v.findViewById(R.id.title_of_preset);
@@ -95,7 +101,6 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
         backwardsBtn.setOnClickListener(this);
         sleepTimerBtn.setOnClickListener(this);
         repeatBtn.setOnClickListener(this);
-
 
 
 
@@ -120,18 +125,18 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             creatChannel();
-            requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("SONG"));
-            getActivity().startService(new Intent(getActivity().getBaseContext(), OnClearFromService.class));
         }
+        requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("SONG"));
+        getActivity().startService(new Intent(getActivity().getBaseContext(), OnClearFromService.class));
 
         if(myMediaPlayer != null){
             myMediaPlayer.stop();
         }
 
-        Intent intent = getIntent();
-        mySongs = (ArrayList) intent.getParcelableArrayListExtra("song");
-        position = intent.getIntExtra("position", 0);
-        initPlayer(position);
+        //Intent intent = getIntent();
+        //mySongs = (ArrayList) intent.getParcelableArrayListExtra("song");
+        //position = intent.getIntExtra("position", 0);
+//        initPlayer(position);
 
         return v;
 
@@ -141,8 +146,8 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()) {
             myMediaPlayer.reset();
         }
-        String songName = mySongs.get(position).getName();
-        titleOfPreset.setText(songName);
+//        String songName = mySongs.get(position).getName();
+  //      titleOfPreset.setText(songName);
 
         uri = Uri.parse(mySongs.get(position).toString());
         myMediaPlayer = MediaPlayer.create(getActivity(), uri);
@@ -290,7 +295,13 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
             case R.id.repeatButton:
                 resetSong();
                 break;
-
+            case R.id.changeSong:
+                libraryFragment libraryFragment = new libraryFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, libraryFragment)
+                        .addToBackStack(null)
+                        .commit();
+                break;
         }
     }
 
@@ -364,6 +375,8 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
             myMediaPlayer.pause();
         }
     };
+
+
 }
 
 

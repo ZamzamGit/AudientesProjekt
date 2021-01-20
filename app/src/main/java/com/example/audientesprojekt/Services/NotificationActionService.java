@@ -1,3 +1,9 @@
+/*
+* Vi benyttet følgende guide:
+*
+* https://www.youtube.com/watch?v=rRoHBWKQoRE&t=184s
+* */
+
 package com.example.audientesprojekt.Services;
 
 import android.content.BroadcastReceiver;

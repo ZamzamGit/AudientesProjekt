@@ -1,3 +1,18 @@
+
+
+
+/*
+* Vi har benyttet os af følgende guide til at hjælpe os med at implementere denne funktion:
+*
+*
+*
+* https://www.youtube.com/watch?v=rRoHBWKQoRE&t=184s og https://www.youtube.com/watch?v=D-UsLR-cdwg&t=1s
+*
+*
+* */
+
+
+
 package com.example.audientesprojekt;
 
 import android.app.Application;

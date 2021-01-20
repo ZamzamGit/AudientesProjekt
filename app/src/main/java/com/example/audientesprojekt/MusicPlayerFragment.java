@@ -1,3 +1,13 @@
+
+/*
+* Vi har benyttet os af følgende guide list til at lave denne afspiller:
+*
+* https://www.youtube.com/watch?v=-srGQk57pBU&list=RDCMUCR1t5eSmLxLUdBnK2XwZOuw&start_radio=1&t=5
+*
+*
+* */
+
+
 package com.example.audientesprojekt;
 
 import android.app.NotificationChannel;
@@ -32,6 +42,7 @@ import com.example.audientesprojekt.librarylogic.LibraryFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
 
 /**
  * A simple {@link Fragment} subclass.

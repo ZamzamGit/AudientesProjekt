@@ -1,3 +1,9 @@
+/*
+* Vi har benyttet os af følgende til at lave dette:
+* https://www.youtube.com/watch?v=rRoHBWKQoRE&t=184s
+*
+* */
+
 package com.example.audientesprojekt.Services;
 
 import android.app.NotificationManager;

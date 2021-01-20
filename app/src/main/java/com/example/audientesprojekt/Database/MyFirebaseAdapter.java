@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audientesprojekt.R;
 import com.example.audientesprojekt.DownloadFragment;
+import com.google.firebase.storage.StorageReference;
+
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 import java.io.IOException;
@@ -41,6 +43,7 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
 
         final SoundBits soundBits = soundsBitsList.get(position);
 
+
         holder.sampleTitle.setText(soundBits.getTitle());
 
         holder.playButton.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +56,6 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
         holder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
 
 

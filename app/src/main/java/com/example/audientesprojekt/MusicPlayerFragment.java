@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class musicplayerFragment extends Fragment implements View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, ExampleBottomDialog.OnInputSelected {
+public class MusicPlayerFragment extends Fragment implements View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, ExampleBottomDialog.OnInputSelected {
 
     ImageView placeholderCover;
     SeekBar seekBar;
@@ -296,7 +296,7 @@ public class musicplayerFragment extends Fragment implements View.OnClickListene
                 resetSong();
                 break;
             case R.id.changeSong:
-                libraryFragment libraryFragment = new libraryFragment();
+                LibraryFragment libraryFragment = new LibraryFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment, libraryFragment)
                         .addToBackStack(null)

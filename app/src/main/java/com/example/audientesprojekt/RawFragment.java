@@ -3,6 +3,7 @@ package com.example.audientesprojekt;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,9 @@ public class RawFragment extends Fragment {
 
         libraryRecyclerView = v.findViewById(R.id.libraryrecyclerView);
         textView = v.findViewById(R.id.fil_navn);
+
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        libraryRecyclerView.addItemDecoration(itemDecoration);
 
         libraryRecyclerView.setHasFixedSize(true);
         libraryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -30,11 +30,9 @@ public class NotificationExample extends Application {
 
     public void creatNotification(Context context, ArrayList<LibraryFile> songs, int playbutton, int pos) {
 
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.cover_placeholder);
-        MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
 
 
         int drw_prev;
@@ -61,15 +59,13 @@ public class NotificationExample extends Application {
                 .addAction(drw_next, "next", pendingNext)
                 .setOngoing(true)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0,1,2)
-                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+                        .setShowActionsInCompactView(0,1,2))
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
         notificationManagerCompat.notify(1, notification);
     }
-    // }
 
 
     public String getChannelId() {

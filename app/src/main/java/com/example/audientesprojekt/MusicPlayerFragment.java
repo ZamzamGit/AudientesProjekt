@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -64,7 +65,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_music_player, container, false);
-
         myMediaPlayer = new MediaPlayer();
         placeholderCover = (ImageView) v.findViewById(R.id.cover_Placeholder);;
         totalTime = v.findViewById(R.id.totalTime);
@@ -100,8 +100,9 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             creatChannel();
         }
-        requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("PLAY_SONG"));
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter("PLAY_SONG"));
         getActivity().startService(new Intent(getActivity().getBaseContext(), OnClearFromService.class));
+
 
         bundle = getArguments();
         if (bundle != null) {
@@ -110,7 +111,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             initPlayer(position);
         }
         seekBar.setProgress(0);
-
 
         return v;
     }
@@ -191,14 +191,9 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
+    public void onStartTrackingTouch(SeekBar seekBar) {}
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 
     public void play(){
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()){
@@ -218,7 +213,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
             int currPos = myMediaPlayer.getCurrentPosition();
             seekBar.setProgress(currPos);
-
+            startTime.setText(createTime(currPos));
 
             if (myMediaPlayer.isPlaying()) {
                 runnable = new Runnable() {
@@ -279,8 +274,8 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         timerLabel += min + ":";
         if (sec < 10) {
             timerLabel += "0";
-            timerLabel += sec;
         }
+        timerLabel += sec;
         return timerLabel;
     }
 
@@ -302,14 +297,16 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
             switch (action){
                 case NotificationExample.ACTION_PREV:
-                    playPrevSong();
-                    break;
                 case NotificationExample.ACTION_PLAY:
-                    play();
-                    break;
                 case NotificationExample.ACTION_NEXT:
-                    playNextSong();
+                    //play();
+                    //playPrevSong();
+                    Toast.makeText(getActivity(), "Under development", Toast.LENGTH_SHORT).show();
                     break;
+               /* case NotificationExample.ACTION_NEXT:
+                    //playNextSong();
+                    Toast.makeText(getActivity(), "Underdevelopment", Toast.LENGTH_SHORT).show();
+                    break;*/
             }
         }
     };
@@ -346,13 +343,12 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         super.onDestroy();
         getActivity().unregisterReceiver(broadcastReceiver);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (myMediaPlayer != null) {
+            myMediaPlayer.pause();
+        }
+    }
 }
-
-
-
-
-
-
-
-
-

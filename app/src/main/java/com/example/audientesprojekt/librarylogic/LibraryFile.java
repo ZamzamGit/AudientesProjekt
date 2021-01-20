@@ -9,6 +9,7 @@ public class LibraryFile {
     public LibraryFile(String fileName, Uri uri) {
         this.fileName = fileName;
         this.uri = uri;
+
     }
 
     public String getFileName() {

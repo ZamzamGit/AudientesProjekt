@@ -1,0 +1,104 @@
+Index: app/src/main/java/com/example/audientesprojekt/LibraryAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.audientesprojekt;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport java.util.ArrayList;\r\n\r\n\r\npublic class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHolder> {\r\n\r\n    private ArrayList<Library> filenames;\r\n\r\n    public LibraryAdapter(ArrayList<Library> filenames) {\r\n        this.filenames = filenames;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){\r\n        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayout,parent,false);\r\n        RecyclerView.ViewHolder viewHolder = new ViewHolder(view);\r\n        return (ViewHolder) viewHolder;\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull ViewHolder holder, int position){\r\n        Library library = filenames.get(position);\r\n        holder.textView.setText(library.getfilnavn());\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount(){\r\n        return filenames.size();\r\n    }\r\n\r\n    public class ViewHolder extends RecyclerView.ViewHolder{\r\n\r\n        public TextView textView;\r\n\r\n\r\n        public ViewHolder(@NonNull View view){\r\n            super(view);\r\n\r\n            textView = (TextView) view.findViewById(R.id.fil_navn);\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/audientesprojekt/LibraryAdapter.java	(revision 48e8e1fa135b07edf4f1f8ce0cfe4747c9908765)
++++ app/src/main/java/com/example/audientesprojekt/LibraryAdapter.java	(date 1611083541746)
+@@ -1,5 +1,7 @@
+ package com.example.audientesprojekt;
+ 
++import android.content.Context;
++import android.media.MediaPlayer;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+@@ -8,6 +10,7 @@
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
++import java.io.File;
+ import java.util.ArrayList;
+ 
+ 
+@@ -15,6 +18,8 @@
+ 
+     private ArrayList<Library> filenames;
+ 
++    private MediaPlayer mediaPlayer;
++
+     public LibraryAdapter(ArrayList<Library> filenames) {
+         this.filenames = filenames;
+     }
+@@ -38,16 +43,50 @@
+         return filenames.size();
+     }
+ 
+-    public class ViewHolder extends RecyclerView.ViewHolder{
++    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+ 
+         public TextView textView;
+ 
+ 
++
+         public ViewHolder(@NonNull View view){
+             super(view);
++            this.textView = (TextView) view.findViewById(R.id.fil_navn);
++
++            view.setOnClickListener(this);
++        }
++
++        @Override
++        public void onClick(View v) {
++
++            int position = getAdapterPosition();
++            if (position != RecyclerView.NO_POSITION) {
++                Context context = null;
++                //String library = "R.raw." + filenames.get(position);
++                Library library = filenames.get(position);
++                String filnavn = library.toString();
++
++
++                context.getResources().getIdentifier(filnavn,"raw","raw");
+ 
+-            textView = (TextView) view.findViewById(R.id.fil_navn);
++
++                mediaPlayer = MediaPlayer.create(this,);
++                mediaPlayer.start();
++                try {
++                    Thread.sleep(5000);
++                } catch (InterruptedException e) {
++                    e.printStackTrace();
++                }
++                mediaPlayer.stop();
++                mediaPlayer.release();
++                mediaPlayer = null;
++            }
+         }
+     }
++    //https://guides.codepath.com/android/using-the-recyclerview
++    //https://stackoverflow.com/questions/12266502/android-mediaplayer-stop-and-play
++    //https://stackoverflow.com/questions/15912825/how-to-read-file-from-res-raw-by-name/15912883
++    //https://stackoverflow.com/questions/6589797/how-to-get-package-name-from-anywhere
++
+ 
+ }
+Index: app/src/main/res/layout/rowlayout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"52dp\">\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/linearLayout\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:orientation=\"horizontal\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/fil_navn\"\r\n            android:layout_width=\"20dp\"\r\n            android:layout_height=\"40dp\"\r\n            android:layout_weight=\"1\"\r\n            android:fontFamily=\"monospace\"\r\n            android:textColor=\"#FFFFFF\"\r\n            android:textSize=\"30dp\" />\r\n\r\n    </LinearLayout>\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/rowlayout.xml	(revision 48e8e1fa135b07edf4f1f8ce0cfe4747c9908765)
++++ app/src/main/res/layout/rowlayout.xml	(date 1611083202715)
+@@ -20,7 +20,6 @@
+             android:layout_width="20dp"
+             android:layout_height="40dp"
+             android:layout_weight="1"
+-            android:fontFamily="monospace"
+             android:textColor="#FFFFFF"
+             android:textSize="30dp" />
+ 

@@ -1,6 +1,8 @@
 package com.example.audientesprojekt.Services;
 
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
@@ -25,6 +27,8 @@ public class OnClearFromService extends Service {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        stopSelf();
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nMgr = (NotificationManager) getSystemService(ns);
+        nMgr.cancel(1);
     }
 }

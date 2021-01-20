@@ -32,7 +32,7 @@ public class NotificationExample extends Application {
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.note);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.cover_placeholder);
         //MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
 
 

@@ -137,6 +137,11 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
                 case R.id.repeatButton:
                     resetSong();
                     break;
+                case R.id.sleepTimerButton:
+                    ExampleBottomDialog bottomDialog = new ExampleBottomDialog();
+                    bottomDialog.setTargetFragment(this, 1);
+                    bottomDialog.show(getFragmentManager(),"exampleDialog");
+                    break;
             }
         } else {
             Toast.makeText(getActivity(), "Please choose a sound", Toast.LENGTH_SHORT).show();
@@ -147,13 +152,10 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()) {
             myMediaPlayer.reset();
         }
-
-
         String songName = mySongs.get(position).getFileName();
         titleOfPreset.setText(songName);
 
         uri = mySongs.get(position).getUri();
-        //myMediaPlayer = MediaPlayer.create(getActivity(), uri);
         myMediaPlayer = new MediaPlayer();
         try {
             myMediaPlayer.setDataSource(getActivity(), uri);
@@ -174,6 +176,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         totalTime.setText(totalTimer);
         myMediaPlayer.start();
         pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_24);
+        noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_pause_24, position);
         updateSeekbar();
     }
 

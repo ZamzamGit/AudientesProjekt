@@ -85,6 +85,13 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
                         .replace(R.id.fragment, libraryFragment)
                         .addToBackStack(null)
                         .commit();
+                if (myMediaPlayer != null){
+                    myMediaPlayer.reset();
+                    myMediaPlayer = null;
+                }
+
+
+
             }
         });
         pausePlayBtn.setOnClickListener(this);
@@ -109,9 +116,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         seekBar.setProgress(0);
 
 
-        if(myMediaPlayer != null){
-            myMediaPlayer.stop();
-        }
         return v;
     }
 
@@ -169,16 +173,14 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
         String totalTimer = createTime(myMediaPlayer.getDuration());
         totalTime.setText(totalTimer);
-
-        pausePlayBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+        myMediaPlayer.start();
+        pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_24);
         updateSeekbar();
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        //int currPosition = ((position+1) % mySongs.size());
-        //initPlayer(currPosition);
-        //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, currPosition);
+        playNextSong();
     }
 
     @Override
@@ -213,19 +215,25 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     public void updateSeekbar() {
-        int currPos = myMediaPlayer.getCurrentPosition();
-        seekBar.setProgress(currPos);
+        if (myMediaPlayer !=null ){
 
-        if (myMediaPlayer.isPlaying()) {
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    updateSeekbar();
-                }
-            };
-            handler.postDelayed(runnable, 1000);
+            int currPos = myMediaPlayer.getCurrentPosition();
+            seekBar.setProgress(currPos);
+
+
+            if (myMediaPlayer.isPlaying()) {
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        updateSeekbar();
+                    }
+                };
+                handler.postDelayed(runnable, 1000);
+            }
         }
+
     }
+
 
     public void playNextSong(){
         myMediaPlayer.reset();
@@ -333,6 +341,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             myMediaPlayer.pause();
         }
     };
+
 
     @Override
     public void onDetach() {

@@ -5,9 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.audientesprojekt.librarylogic.LibraryAdapter;
 import com.example.audientesprojekt.librarylogic.LibraryFactory;
@@ -15,7 +18,7 @@ import com.example.audientesprojekt.librarylogic.LibraryFile;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ArrayList<LibraryFile> libraryFiles;
     private ListView libraryList;
@@ -27,16 +30,18 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_library,container,false);
 
-        tabLayout = v.findViewById(R.id.tabLayout);
+        tabLayout = v.findViewById(R.id.tablayout);
         libraryList = v.findViewById(R.id.libraryList);
+        tabLayout.addTab(tabLayout.newTab().setText("Sound"));
         tabLayout.addTab(tabLayout.newTab().setText("Your Presets"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sounds"));
         libraryFiles = new ArrayList<>();
         factory = new LibraryFactory();
-        factory.getLibraryFiles("preset").getFiles(getActivity(), libraryFiles);
+        factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
         adapter = new LibraryAdapter(getActivity(), libraryFiles);
         libraryList.setAdapter(adapter);
+        libraryList.setOnItemClickListener(this);
         return v;
+
     }
 
     @Override
@@ -46,8 +51,11 @@ public class LibraryFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 if(tabLayout.getSelectedTabPosition() == 0) {
+                    factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
+
+                } else {
+
                     if(!(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                         libraryFiles.clear();
@@ -55,10 +63,6 @@ public class LibraryFragment extends Fragment {
                     } else {
                         factory.getLibraryFiles("preset").getFiles(getActivity(), libraryFiles);
                     }
-
-                } else {
-
-                    factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
                 }
                 adapter = new LibraryAdapter(getActivity(), libraryFiles);
                 libraryList.setAdapter(adapter);
@@ -72,5 +76,13 @@ public class LibraryFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("soundlist", (ArrayList<? extends Parcelable>) libraryFiles);
+        bundle.putInt("position", position);
+        setArguments(bundle);
     }
 }

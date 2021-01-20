@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class DownloadFragment extends Fragment {
@@ -37,6 +38,7 @@ public class DownloadFragment extends Fragment {
         fieBaseRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         setUpFB();
         dataFromFirebase();
+
         return v;
     }
 
@@ -55,7 +57,9 @@ public class DownloadFragment extends Fragment {
                                     querySnapshot.getString("songUrl"));
 
                             soundsBitsList.add(soundBits);
+
                         }
+
                         myFirebaseAdapter= new MyFirebaseAdapter(soundsBitsList);
                         fieBaseRecycler.setAdapter(myFirebaseAdapter);
                     }
@@ -68,6 +72,8 @@ public class DownloadFragment extends Fragment {
                     }
                 })
         ;
+
+
     }
 
     private void setUpFB(){

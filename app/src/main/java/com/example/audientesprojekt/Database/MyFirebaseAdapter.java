@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audientesprojekt.R;
 import com.example.audientesprojekt.DownloadFragment;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
@@ -24,7 +25,6 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
     private ArrayList<SoundBits> soundsBitsList;
     private MediaPlayer mediaPlayer = null;
     private Button oldHolder = null;
-
 
     public MyFirebaseAdapter(ArrayList<SoundBits> sound_bitsArrayList) {
         this.soundsBitsList = sound_bitsArrayList;
@@ -56,6 +56,16 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
         holder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                StorageReference ref =storage.getReferenceFromUrl(soundBits.getSongUrl());
+
+
+
+
+
 
 
 
@@ -131,6 +141,7 @@ public class MyFirebaseAdapter extends RecyclerView.Adapter<MyFirebaseAdapter.My
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+
 
         downloadManager.enqueue(request);
     }

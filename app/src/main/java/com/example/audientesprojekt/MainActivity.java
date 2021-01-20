@@ -1,14 +1,16 @@
 package com.example.audientesprojekt;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private BottomNavigationView bottomViewnavigator;
+    BottomNavigationView bottomViewnavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         bottomViewnavigator.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PresetFragment()).commit();
         bottomViewnavigator.setSelectedItemId(R.id.presetFragment);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

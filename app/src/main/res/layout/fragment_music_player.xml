@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:visibility="visible"
-    tools:context=".MusicPlayerFragment"
+    tools:context=".Music_Player_activity"
     tools:visibility="visible">
 
     <!-- TODO: Gør linjen synlig, hvid eller whatever. derudover implementer tal til at repræsentere hvor langt man er i presettet -->
@@ -27,16 +27,15 @@
     <SeekBar
         android:id="@+id/seekBar"
         style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
+        android:layout_width="359dp"
+        android:layout_height="26dp"
         android:layout_marginTop="456dp"
-        android:layout_marginEnd="35dp"
+        android:secondaryProgressTint="@color/colorPrimary"
         android:max="100"
         android:progress="30"
         android:progressTint="#FB0606"
-        android:secondaryProgressTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,7 +91,7 @@
         android:id="@+id/title_of_preset"
         android:layout_width="261dp"
         android:layout_height="26dp"
-        android:text="No music to play"
+        android:text="TextView"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
@@ -103,11 +102,9 @@
 
     <Button
         android:id="@+id/changeSong"
-        android:layout_width="120dp"
-        android:layout_height="64dp"
-        android:background="@drawable/gradient_circle_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Choose music"
-        android:textColor="#FFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -116,28 +113,22 @@
         app:layout_constraintVertical_bias="0.119" />
 
     <TextView
-        android:id="@+id/startTime"
+        android:id="@+id/seekBarProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="00.00"
+        android:text="TextView"
         android:textColor="#F6F0F0"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="480dp" />
 
     <TextView
         android:id="@+id/totalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:text="00.00"
+        android:text="TextView"
         android:textColor="#FAF3F3"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        tools:layout_editor_absoluteX="334dp"
+        tools:layout_editor_absoluteY="484dp" />
 
     <ImageView
         android:id="@+id/pause_Play_Button"

@@ -23,9 +23,12 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.media.MediaPlayer;
+import android.widget.Toast;
 
 import com.example.audientesprojekt.Services.OnClearFromService;
 import com.example.audientesprojekt.librarylogic.LibraryFile;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +77,16 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         backwardsBtn = (ImageView) v.findViewById(R.id.backwards_Button);
         sleepTimerBtn = (ImageView) v.findViewById(R.id.sleepTimerButton);
         repeatBtn = (ImageView) v.findViewById(R.id.repeatButton);
-        choosePreset.setOnClickListener(this);
+        choosePreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LibraryFragment libraryFragment = new LibraryFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, libraryFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         pausePlayBtn.setOnClickListener(this);
         forwardBtn.setOnClickListener(this);
         backwardsBtn.setOnClickListener(this);
@@ -90,11 +102,11 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
         bundle = getArguments();
         if (bundle != null) {
-            mySongs = (ArrayList<LibraryFile>) bundle.getSerializable("sounds");
+            mySongs = bundle.getParcelableArrayList("sounds");
             position = bundle.getInt("position");
             initPlayer(position);
         }
-        updateSeekbar();
+        seekBar.setProgress(0);
 
 
         if(myMediaPlayer != null){
@@ -105,29 +117,26 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v){
-        switch (v.getId()) {
-            case R.id.pause_Play_Button:
-                play();
-                updateSeekbar();
-                break;
-            case R.id.forward_Button:
-                playNextSong();
-                //updateSeekbar();
-                break;
-            case R.id.backwards_Button:
-                playPrevSong();
-                //updateSeekbar();
-                break;
-            case R.id.repeatButton:
-                resetSong();
-                break;
-            case R.id.changeSong:
-                LibraryFragment libraryFragment = new LibraryFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment, libraryFragment)
-                        .addToBackStack(null)
-                        .commit();
-                break;
+        if (bundle != null) {
+            switch (v.getId()) {
+                case R.id.pause_Play_Button:
+                    play();
+                    updateSeekbar();
+                    break;
+                case R.id.forward_Button:
+                    playNextSong();
+                    //updateSeekbar();
+                    break;
+                case R.id.backwards_Button:
+                    playPrevSong();
+                    //updateSeekbar();
+                    break;
+                case R.id.repeatButton:
+                    resetSong();
+                    break;
+            }
+        } else {
+            Toast.makeText(getActivity(), "Please choose a sound", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,19 +144,23 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()) {
             myMediaPlayer.reset();
         }
-        //uri = Uri.parse(mySongs.get(position).toString());
 
-       // if (bundle != null) {
-            String songName = mySongs.get(position).getFileName();
-            titleOfPreset.setText(songName);
 
-            uri = Uri.parse(mySongs.get(position).toString());
-            myMediaPlayer = MediaPlayer.create(getActivity(), uri);
+        String songName = mySongs.get(position).getFileName();
+        titleOfPreset.setText(songName);
+
+        uri = mySongs.get(position).getUri();
+        //myMediaPlayer = MediaPlayer.create(getActivity(), uri);
+        myMediaPlayer = new MediaPlayer();
+        try {
+            myMediaPlayer.setDataSource(getActivity(), uri);
             myMediaPlayer.setOnPreparedListener(this);
-//        myMediaPlayer.prepareAsync();
+            myMediaPlayer.prepareAsync();
             myMediaPlayer.setOnCompletionListener(this);
             seekBar.setOnSeekBarChangeListener(this);
-        //}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -163,8 +176,8 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        int currPosition = ((position+1) % mySongs.size());
-        initPlayer(currPosition);
+        //int currPosition = ((position+1) % mySongs.size());
+        //initPlayer(currPosition);
         //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, currPosition);
     }
 
@@ -320,6 +333,12 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             myMediaPlayer.pause();
         }
     };
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        myMediaPlayer.reset();
+    }
 }
 
 

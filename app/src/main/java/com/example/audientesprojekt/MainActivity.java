@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomViewnavigator = findViewById(R.id.bottomNavigationView);
         bottomViewnavigator.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PresetFragment()).commit();
-        bottomViewnavigator.setSelectedItemId(R.id.presetFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MusicPlayerFragment()).commit();
+        bottomViewnavigator.setSelectedItemId(R.id.musicplayerFragment);
 
     }
 

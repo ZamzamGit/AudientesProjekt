@@ -26,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.media.MediaPlayer;
 
+import com.example.audientesprojekt.librarylogic.LibraryFile;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 
 import java.io.File;
@@ -39,32 +40,23 @@ import java.util.concurrent.TimeUnit;
  */
 public class MusicPlayerFragment extends Fragment implements View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, ExampleBottomDialog.OnInputSelected {
 
-    ImageView placeholderCover;
-    SeekBar seekBar;
-    Button choosePreset;
-    TextView titleOfPreset, totalTime, startTime;
-    ImageView pausePlayBtn;
-    ImageView forwardBtn;
-    ImageView backwardsBtn;
-    ImageView sleepTimerBtn;
-    ImageView repeatBtn;
-    MediaPlayer myMediaPlayer;
-    int position;
-    NotificationExample noti = new NotificationExample();
-    Uri uri;
-    private ArrayList<File> mySongs;
-    private FragmentActivity main;
-    NotificationManager notificationManager;
-    BottomNavigationItemView bottomNav;
-
-
-
-    Runnable runnable;
-    Handler handler;
-
-    // TODO: 05-01-21  lav imageviews om til knapper så du kan pause, spolle frem og kører på repeat
-    // TODO: 05-01-21 lav en menu til sleep timer, der popper op når man trykker på den, ligesom mofibos version
-    // TODO: 07-01-21 Skal lave en async thread der kan afpsille musikken i baggrunden
+    private ImageView placeholderCover;
+    private SeekBar seekBar;
+    private Button choosePreset;
+    private TextView titleOfPreset, totalTime, startTime;
+    private ImageView pausePlayBtn;
+    private ImageView forwardBtn;
+    private ImageView backwardsBtn;
+    private ImageView sleepTimerBtn;
+    private ImageView repeatBtn;
+    private MediaPlayer myMediaPlayer;
+    private int position;
+    private NotificationExample noti = new NotificationExample();
+    private Uri uri;
+    private ArrayList<LibraryFile> mySongs;
+    private NotificationManager notificationManager;
+    private Runnable runnable;
+    private Handler handler;
 
 
 
@@ -73,17 +65,18 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_music_player, container, false);
 
-        //getactivty() skal måske ændres
         myMediaPlayer = new MediaPlayer();
         myMediaPlayer = MediaPlayer.create(getActivity(), R.raw.crickets);
         handler = new Handler();
 
+        Bundle bundle = getArguments();
 
-        // TODO: 06-01-21 Laver en midlertidig afspiller med en fil, vil bruger library funktionen senere
+        if(bundle != null) {
+            mySongs = bundle.getParcelableArrayList("sounds");
+            position = bundle.getInt("position");
+        }
 
-
-        placeholderCover = (ImageView) v.findViewById(R.id.cover_Placeholder);
-        bottomNav = v.findViewById(R.id.bottomNavigationView);
+        placeholderCover = (ImageView) v.findViewById(R.id.cover_Placeholder);;
         totalTime = v.findViewById(R.id.totalTime);
         startTime = v.findViewById(R.id.startTime);
         titleOfPreset = v.findViewById(R.id.title_of_preset);
@@ -94,7 +87,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         backwardsBtn = (ImageView) v.findViewById(R.id.backwards_Button);
         sleepTimerBtn = (ImageView) v.findViewById(R.id.sleepTimerButton);
         repeatBtn = (ImageView) v.findViewById(R.id.repeatButton);
-
         choosePreset.setOnClickListener(this);
         pausePlayBtn.setOnClickListener(this);
         forwardBtn.setOnClickListener(this);
@@ -102,26 +94,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         sleepTimerBtn.setOnClickListener(this);
         repeatBtn.setOnClickListener(this);
 
-
-
-        // TODO: 06-01-21 Implementer måske choose song, der tager ind hen til ens library, og derefter en sharedpreference manager, der husker ens sidste valg mellem sessions
-      /*  pausePlayBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if (mediaPlayer.isPlaying()) {
-                    runnable
-                }
-
-
-                pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
-                PlaySong();
-
-            }
-        });
-
-       */
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             creatChannel();
@@ -132,12 +104,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         if(myMediaPlayer != null){
             myMediaPlayer.stop();
         }
-
-        //Intent intent = getIntent();
-        //mySongs = (ArrayList) intent.getParcelableArrayListExtra("song");
-        //position = intent.getIntExtra("position", 0);
-//        initPlayer(position);
-
         return v;
 
         }
@@ -146,12 +112,11 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()) {
             myMediaPlayer.reset();
         }
-//        String songName = mySongs.get(position).getName();
-  //      titleOfPreset.setText(songName);
-
-        uri = Uri.parse(mySongs.get(position).toString());
+        //uri = Uri.parse(mySongs.get(position).toString());
+        uri = mySongs.get(position).getUri();
         myMediaPlayer = MediaPlayer.create(getActivity(), uri);
         myMediaPlayer.setOnPreparedListener(this);
+        myMediaPlayer.prepareAsync();
         myMediaPlayer.setOnCompletionListener(this);
         seekBar.setOnSeekBarChangeListener(this);
     }
@@ -162,9 +127,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
         String totalTimer = createTime(myMediaPlayer.getDuration());
         totalTime.setText(totalTimer);
-
-
-        //myMediaPlayer.start();
 
         pausePlayBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
         updateSeekbar();
@@ -204,7 +166,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             myMediaPlayer.start();
             noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_pause_24, position);
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_24);
-            //updateSeekbar();
         }
     }
 
@@ -212,18 +173,12 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         myMediaPlayer.reset();
 
         position = ((position+1) % mySongs.size());
-        /*uri = Uri.parse(mySongs.get(position).toString());
-        myMediaPlayer = MediaPlayer.create(this, uri);
-        name.setText(mySongs.get(position).getName());
-        myMediaPlayer.start();
-*/
         initPlayer(position);
         if (myMediaPlayer.isPlaying()){
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_24);
         } else {
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
         }
-        //updateSeekbar();
         noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
     }
 
@@ -241,13 +196,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             position--;
         }
 
-        /*uri = Uri.parse(mySongs.get(position).toString());
-
-        myMediaPlayer = MediaPlayer.create(this, uri);
-        mSongName = mySongs.get(position).getName();
-        name.setText(mSongName);
-        myMediaPlayer.start();
-         */
         initPlayer(position);
 
         if (myMediaPlayer.isPlaying()){
@@ -258,8 +206,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
         noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
     }
-
-
 
 
     public void updateSeekbar() {
@@ -375,8 +321,6 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             myMediaPlayer.pause();
         }
     };
-
-
 }
 
 

@@ -26,6 +26,7 @@ public class LibraryFragment extends Fragment implements AdapterView.OnItemClick
     private TabLayout tabLayout;
     private LibraryFactory factory;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_library,container,false);
@@ -81,8 +82,15 @@ public class LibraryFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("soundlist", (ArrayList<? extends Parcelable>) libraryFiles);
+        bundle.putParcelableArrayList("sounds", (ArrayList<? extends Parcelable>) libraryFiles);
         bundle.putInt("position", position);
-        setArguments(bundle);
+        MusicPlayerFragment musicPlayerFragment = new MusicPlayerFragment();
+        musicPlayerFragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment, musicPlayerFragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 }

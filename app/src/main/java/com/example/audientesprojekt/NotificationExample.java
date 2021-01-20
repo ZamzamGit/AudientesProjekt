@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.audientesprojekt.librarylogic.LibraryFile;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -25,7 +27,7 @@ public class NotificationExample extends Application {
     private Notification notification;
     NotificationManager manager;
 
-    public void creatNotification(Context context, ArrayList<File> songs, int playbutton, int pos) {
+    public void creatNotification(Context context, ArrayList<LibraryFile> songs, int playbutton, int pos) {
 
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -52,7 +54,7 @@ public class NotificationExample extends Application {
                 .setSmallIcon(R.drawable.ic_baseline_music_note_24)
                 .setLargeIcon(icon)
                 .setContentTitle("Audientes")
-                .setContentText(songs.get(pos).getName())
+                .setContentText(songs.get(pos).getFileName())
                 .addAction(drw_prev, "prev", pendingPrev)
                 .addAction(playbutton, "play", pendingPlay)
                 .addAction(drw_next, "next", pendingNext)

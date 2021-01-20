@@ -1,7 +1,9 @@
 package com.example.audientesprojekt.librarylogic;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class LibraryFile {
+public class LibraryFile implements Parcelable {
 
     private String fileName;
     private Uri uri;
@@ -10,6 +12,23 @@ public class LibraryFile {
         this.fileName = fileName;
         this.uri = uri;
     }
+
+    protected LibraryFile(Parcel in) {
+        fileName = in.readString();
+        uri = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    public static final Creator<LibraryFile> CREATOR = new Creator<LibraryFile>() {
+        @Override
+        public LibraryFile createFromParcel(Parcel in) {
+            return new LibraryFile(in);
+        }
+
+        @Override
+        public LibraryFile[] newArray(int size) {
+            return new LibraryFile[size];
+        }
+    };
 
     public String getFileName() {
         return fileName;
@@ -27,48 +46,15 @@ public class LibraryFile {
         this.uri = uri;
     }
 
-
-    /*
-    public static ArrayList<LibraryFile> createList(int a){
-        ArrayList<LibraryFile> filenames = new ArrayList<LibraryFile>();
-
-        for(int i = 0; i < a; i++){
-            filenames.add(new LibraryFile("Fil" + i));
-        }
-        System.out.println(filenames);
-        return filenames;
-
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    /*
-    public static ArrayList<LibraryFile> getFiles() {
-        ArrayList<LibraryFile> filenames = new ArrayList<LibraryFile>();
-
-        Class directory = R.raw.class;
-        Class[] files = directory.getClasses();
-
-        for(int i = 0; i < files.length; i++){
-            LibraryFile file_name = new LibraryFile(files[i].toString());
-            filenames.add(new LibraryFile("" + file_name));
-        }
-        System.out.println(filenames);
-        return filenames;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fileName);
+        dest.writeParcelable(uri, flags);
     }
-    public static ArrayList<LibraryFile> listRaw() {
-        ArrayList<LibraryFile> filenames = new ArrayList<LibraryFile>();
-
-        Field[] fields = R.raw.class.getDeclaredFields();
-        for(int i=0; i < fields.length; i++){
-            Log.i("Raw asset: ", fields[i].getName());
-            LibraryFile file_name = new LibraryFile(fields[i].getName());
-            filenames.add(file_name);
-            //filenames.add(new Library("" + file_name));
-        }
-        System.out.println(filenames);
-        return  filenames;
-    }
-
-     */
-
 }
 

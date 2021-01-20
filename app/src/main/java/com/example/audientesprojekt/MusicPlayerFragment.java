@@ -100,12 +100,11 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         sleepTimerBtn.setOnClickListener(this);
         repeatBtn.setOnClickListener(this);
 
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             creatChannel();
         }
         requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("PLAY_SONG"));
-        getActivity().startService(new Intent(getActivity().getBaseContext(), OnClearFromService.class));*/
+        getActivity().startService(new Intent(getActivity().getBaseContext(), OnClearFromService.class));
 
         bundle = getArguments();
         if (bundle != null) {
@@ -204,11 +203,11 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
     public void play(){
         if (myMediaPlayer != null && myMediaPlayer.isPlaying()){
             myMediaPlayer.pause();
-            //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
+            noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
         } else {
             myMediaPlayer.start();
-            //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_pause_24, position);
+            noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_pause_24, position);
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_pause_24);
         }
         updateSeekbar();
@@ -245,7 +244,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
         } else {
             pausePlayBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
         }
-        //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
+        noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
     }
 
     public void resetSong(){
@@ -262,7 +261,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             position--;
         }
 
-        //noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
+        noti.creatNotification(getActivity(), mySongs, R.drawable.ic_baseline_play_arrow_24, position);
         initPlayer(position);
 
         if (myMediaPlayer.isPlaying()){

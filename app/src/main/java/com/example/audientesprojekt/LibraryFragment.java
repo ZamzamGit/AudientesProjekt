@@ -1,54 +1,49 @@
 package com.example.audientesprojekt;
-
-import android.content.Context;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.widget.Adapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.audientesprojekt.Adapter.SectionPageAdapter;
+import com.example.audientesprojekt.librarylogic.LibraryAdapter;
+import com.example.audientesprojekt.librarylogic.LibraryFactory;
+import com.example.audientesprojekt.librarylogic.LibraryFile;
 import com.google.android.material.tabs.TabLayout;
-
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the  factory method to
- * create an instance of this fragment.
- */
 public class LibraryFragment extends Fragment {
 
-    //https://guides.codepath.com/android/using-the-recyclerview
-
-    //String path = getFilePath(getActivity(),"cave.flac");
-    private RecyclerView libraryRecyclerView;
-    private ArrayList<Library> filenames;
+    private ArrayList<LibraryFile> libraryFiles;
+    private ListView libraryList;
     private LibraryAdapter adapter;
-    private TextView textView;
-    private ViewPager viewPager;
     private TabLayout tabLayout;
-
+    private LibraryFactory factory;
+    private final int PERMISSION_CODE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_library,container,false);
 
-        viewPager = v.findViewById(R.id.viewPager);
         tabLayout = v.findViewById(R.id.tabLayout);
+        libraryList = v.findViewById(R.id.libraryList);
+        tabLayout.addTab(tabLayout.newTab().setText("Sounds"));
+        tabLayout.addTab(tabLayout.newTab().setText("Your Presets"));
+        libraryFiles = new ArrayList<>();
+        factory = new LibraryFactory();
+        factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
+        adapter = new LibraryAdapter(getActivity(), libraryFiles);
+        libraryList.setAdapter(adapter);
         return v;
     }
 
@@ -56,39 +51,34 @@ public class LibraryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setUpViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+                if(tabLayout.getSelectedTabPosition() == 0) {
+                    factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
+
+                } else {
+
+                    if(!(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                        libraryFiles.clear();
+
+                    } else {
+                        factory.getLibraryFiles("preset").getFiles(getActivity(), libraryFiles);
+                    }
+                }
+                adapter = new LibraryAdapter(getActivity(), libraryFiles);
+                libraryList.setAdapter(adapter);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
-
-    private void setUpViewPager(ViewPager viewPager) {
-        SectionPageAdapter sectionPageAdapter = new SectionPageAdapter(getChildFragmentManager());
-        sectionPageAdapter.addFragment(new RawFragment(), "Raw");
-        sectionPageAdapter.addFragment(new Library_Preset_Fragment(), "Presets");
-
-        viewPager.setAdapter(sectionPageAdapter);
-    }
-
-    /*
-    public String getFilePath(Context context, String YourFileName){
-        File file = context.getFileStreamPath(YourFileName);
-        return file.getAbsolutePath();
-    }
-
- */
 }

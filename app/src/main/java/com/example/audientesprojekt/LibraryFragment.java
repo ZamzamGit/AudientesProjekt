@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +23,6 @@ import com.google.android.material.tabs.TabLayout;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,10 +49,6 @@ public class LibraryFragment extends Fragment {
 
         viewPager = v.findViewById(R.id.viewPager);
         tabLayout = v.findViewById(R.id.tabLayout);
-        //libraryRecyclerView = v.findViewById(R.id.libraryrecyclerView);
-
-        //RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(requireActivity(),DividerItemDecoration.VERTICAL);
-        //libraryRecyclerView.addItemDecoration(itemDecoration);
         return v;
     }
 

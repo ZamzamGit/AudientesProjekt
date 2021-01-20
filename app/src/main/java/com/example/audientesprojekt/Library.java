@@ -27,7 +27,6 @@ public class Library {
         return filenames;
 
     }
-    /*
     public static ArrayList<Library> getFiles() {
         ArrayList<Library> filenames = new ArrayList<Library>();
 
@@ -41,8 +40,6 @@ public class Library {
         System.out.println(filenames);
         return filenames;
     }
-
-     */
     public static ArrayList<Library> listRaw() {
         ArrayList<Library> filenames = new ArrayList<Library>();
 

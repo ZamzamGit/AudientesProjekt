@@ -346,9 +346,9 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
 
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        myMediaPlayer.reset();
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 }
 

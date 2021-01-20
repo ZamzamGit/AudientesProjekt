@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.media.session.MediaSessionCompat;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -33,7 +34,7 @@ public class NotificationExample extends Application {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.cover_placeholder);
-        //MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
+        MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
 
 
         int drw_prev;
@@ -58,9 +59,10 @@ public class NotificationExample extends Application {
                 .addAction(drw_prev, "prev", pendingPrev)
                 .addAction(playbutton, "play", pendingPlay)
                 .addAction(drw_next, "next", pendingNext)
+                .setOngoing(true)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0,1,2))
-                //    .setMediaSession(mediaSessionCompat.getSessionToken()))
+                        .setShowActionsInCompactView(0,1,2)
+                        .setMediaSession(mediaSessionCompat.getSessionToken()))
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_LOW)

@@ -29,11 +29,11 @@ public class LibraryFragment extends Fragment {
 
         tabLayout = v.findViewById(R.id.tabLayout);
         libraryList = v.findViewById(R.id.libraryList);
-        tabLayout.addTab(tabLayout.newTab().setText("Sounds"));
         tabLayout.addTab(tabLayout.newTab().setText("Your Presets"));
+        tabLayout.addTab(tabLayout.newTab().setText("Sounds"));
         libraryFiles = new ArrayList<>();
         factory = new LibraryFactory();
-        factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
+        factory.getLibraryFiles("preset").getFiles(getActivity(), libraryFiles);
         adapter = new LibraryAdapter(getActivity(), libraryFiles);
         libraryList.setAdapter(adapter);
         return v;
@@ -48,10 +48,6 @@ public class LibraryFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
 
                 if(tabLayout.getSelectedTabPosition() == 0) {
-                    factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
-
-                } else {
-
                     if(!(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                         libraryFiles.clear();
@@ -59,6 +55,10 @@ public class LibraryFragment extends Fragment {
                     } else {
                         factory.getLibraryFiles("preset").getFiles(getActivity(), libraryFiles);
                     }
+
+                } else {
+
+                    factory.getLibraryFiles("raw").getFiles(getActivity(), libraryFiles);
                 }
                 adapter = new LibraryAdapter(getActivity(), libraryFiles);
                 libraryList.setAdapter(adapter);

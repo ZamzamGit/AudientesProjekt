@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "201971921788",
+    "firebase_url": "https://c5-audientes-projekt-default-rtdb.firebaseio.com",
+    "project_id": "c5-audientes-projekt",
+    "storage_bucket": "c5-audientes-projekt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201971921788:android:6099135f0945271594eaf9",
+        "android_client_info": {
+          "package_name": "com.example.audientesprojekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201971921788-bijd9t22vfqpc5v46aqogke7m93k8ktg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAorEKBWkR9i9aqOQQKSrc2b86cvyziQLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201971921788-bijd9t22vfqpc5v46aqogke7m93k8ktg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

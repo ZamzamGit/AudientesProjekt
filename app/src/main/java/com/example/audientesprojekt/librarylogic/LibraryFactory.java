@@ -2,6 +2,7 @@ package com.example.audientesprojekt.librarylogic;
 
 public class LibraryFactory {
 
+    // Factory Pattern
     public Library getLibraryFiles(String type) {
 
         if(type.equals("raw")) {

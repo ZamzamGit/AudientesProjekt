@@ -14,6 +14,8 @@ import java.util.Locale;
 /* Den her klasse er en dialog, som bruges, så brugeren kan redigerer den valgte lydfil, og
  * bestemme hvornår lyden skal starte. */
 
+/* Library brugt for at lave RangeSeekBar : https://github.com/anothem/android-range-seek-bar*/
+
 public class SoundInputDialog extends Dialog implements View.OnClickListener{
 
     private SoundInput soundInput; // den valgte lydfil
@@ -70,7 +72,7 @@ public class SoundInputDialog extends Dialog implements View.OnClickListener{
         end.setText(endTime);
     }
 
-    /* Denne her metode bliver brugt i trim metoden. Den bruges bare at lave en format
+    /* Denne her metode bliver brugt i trim metoden. Den bruges til at lave en format
      *  Lydfilens varighed er konvereret til mikrosekunder før vi sætter den i objektet, derfor
      *  konventerer vi varigheden fra mikrosekunder til sekunder, minutter og timer fra. */
 

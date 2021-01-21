@@ -15,7 +15,8 @@ public class SoundData {
     private SoundData() {
     }
 
-    public ArrayList<SoundInput> readFiles(Context context) {
+    // henter alle lydfiler
+    public ArrayList<SoundInput> readSounds(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString("sounds",null);
@@ -24,11 +25,13 @@ public class SoundData {
         return gson.fromJson(json, type);
     }
 
+    // Singleton Pattern
     public static SoundData getInstance() {
         return instance;
     }
 
-    public void saveData(SoundInput sound, Context context) {
+    // gemmer en lydfil
+    public void saveSound(SoundInput sound, Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         String json = sharedPref.getString("sounds", null);
         Gson gson = new Gson();
@@ -36,7 +39,7 @@ public class SoundData {
         if(json == null) {
             soundInputs = new ArrayList<>();
         } else {
-            soundInputs = readFiles(context);
+            soundInputs = readSounds(context);
         }
         soundInputs.add(sound);
         json = gson.toJson(soundInputs);

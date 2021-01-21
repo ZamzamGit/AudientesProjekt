@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import zeroonezero.android.audio_mixer.AudioMixer;
 import zeroonezero.android.audio_mixer.input.GeneralAudioInput;
 
+/* Mixeren er lavet ved brug af en library:
+https://github.com/ZeroOneZeroR/android_tutorial_practice/commit/22cdeaff31aef7e654bc6ae8b236cbcf8941311a*/
+
 public class SoundMixer {
 
     private AudioMixer mixer;
@@ -45,6 +48,7 @@ public class SoundMixer {
 
         mixer.setMixingType(AudioMixer.MixingType.PARALLEL);
 
+        // mens den er igang med at mixe
         mixer.setProcessingListener(new AudioMixer.ProcessingListener() {
             @Override
             public void onProgress(final double progress) {
@@ -56,6 +60,7 @@ public class SoundMixer {
                 });
             }
 
+            // når den er færdig med at mixe
             @Override
             public void onEnd() {
                 activity.runOnUiThread(new Runnable() {

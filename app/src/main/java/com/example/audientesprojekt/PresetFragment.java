@@ -35,8 +35,6 @@ import com.example.audientesprojekt.presetlogik.SoundMixer;
 import java.io.File;
 import java.util.ArrayList;
 
-import io.sentry.Sentry;
-
 public class PresetFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView presetRecyclerView;
@@ -50,11 +48,14 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_preset, container, false);
 
+        /*
         try {
             throw new Exception("This is a test.");
         } catch (Exception e) {
             Sentry.captureException(e);
         }
+
+         */
 
         presetRecyclerView = v.findViewById(R.id.presetRecyclerView);
         addSound = v.findViewById(R.id.addSoundBtn);
@@ -62,7 +63,7 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
 
         presetRecyclerView.setHasFixedSize(true);
         presetRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        soundInputs = SoundData.getInstance().readFiles(getActivity());
+        soundInputs = SoundData.getInstance().readSounds(getActivity());
 
         if(soundInputs == null) {
             soundInputs = new ArrayList<>();
@@ -79,6 +80,7 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if(v == addSound) {
+            // hvis appen har adgang til brugerens filer
             if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -102,7 +104,7 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    // Dialog hvor brugeren navngiver sin nye lydfil
+    // ny fil navngivet og lydfilerne mixes derefter
     public void startMix() {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
         builder.setTitle("Name your file");
@@ -180,7 +182,7 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
 
                 Cursor cursor = getActivity().getContentResolver().
                         query(uri, null, null, null, null);
-                int fileName = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                int fileName = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME); // henter lydfilens navn
                 cursor.moveToFirst();
                 MediaMetadataRetriever retriever = new MediaMetadataRetriever(); // bruges til at hente informationer om lydfil
                 retriever.setDataSource(getActivity(), uri);
@@ -215,7 +217,7 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
                     input.setDurationStart(soundInputDialog.getMinimum());
                     input.setDurationEnd(soundInputDialog.getMaximum());
                     soundInputs.add(input);
-                    SoundData.getInstance().saveData(input, getActivity());
+                    SoundData.getInstance().saveSound(input, getActivity());
                     refreshFragment();
                 }
             }

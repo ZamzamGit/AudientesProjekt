@@ -24,7 +24,6 @@
         </intent-filter></activity>
         <service android:name=".Services.OnClearFromService"/>
         <receiver android:name=".Services.NotificationActionService"/>
-        meta-data android:name="io.sentry.dsn" android:value="https://83a2ca174cf14960a627746545e6d9f9@o508364.ingest.sentry.io/5600761"
     </application>
 
 </manifest>

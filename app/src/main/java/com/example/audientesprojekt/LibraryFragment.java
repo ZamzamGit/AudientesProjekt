@@ -18,7 +18,6 @@ import com.example.audientesprojekt.librarylogic.LibraryFile;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
-import io.sentry.Sentry;
 
 public class LibraryFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -32,13 +31,16 @@ public class LibraryFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_library,container,false);
+        /*
         try {
             throw new Exception("This is a test.");
         } catch (Exception e) {
             Sentry.captureException(e);
         }
 
-        tabLayout = v.findViewById(R.id.tablayout);
+         */
+
+        tabLayout = v.findViewById(R.id.tabLayout);
         libraryList = v.findViewById(R.id.libraryList);
         tabLayout.addTab(tabLayout.newTab().setText("Sound"));
         tabLayout.addTab(tabLayout.newTab().setText("Your Presets"));

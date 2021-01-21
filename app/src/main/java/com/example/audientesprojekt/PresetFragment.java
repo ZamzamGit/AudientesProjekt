@@ -35,8 +35,6 @@ import com.example.audientesprojekt.presetlogik.SoundMixer;
 import java.io.File;
 import java.util.ArrayList;
 
-import io.sentry.Sentry;
-
 public class PresetFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView presetRecyclerView;
@@ -50,11 +48,14 @@ public class PresetFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_preset, container, false);
 
+        /*
         try {
             throw new Exception("This is a test.");
         } catch (Exception e) {
             Sentry.captureException(e);
         }
+
+         */
 
         presetRecyclerView = v.findViewById(R.id.presetRecyclerView);
         addSound = v.findViewById(R.id.addSoundBtn);

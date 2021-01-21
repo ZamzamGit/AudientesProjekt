@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import io.sentry.Sentry;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the  factory method to
@@ -33,11 +31,14 @@ public class HearingTestFragment extends Fragment implements View.OnClickListene
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hearing_test, container,false);
 
+        /*
         try {
             throw new Exception("This is a test.");
         } catch (Exception e) {
             Sentry.captureException(e);
         }
+
+         */
         hearingTest = v.findViewById(R.id.button);
         hearingTest.setOnClickListener(this);
         return v;

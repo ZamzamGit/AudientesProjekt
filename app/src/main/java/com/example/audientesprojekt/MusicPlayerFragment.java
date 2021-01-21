@@ -10,6 +10,7 @@
 
 package com.example.audientesprojekt;
 
+import android.app.DownloadManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -132,7 +133,7 @@ public class MusicPlayerFragment extends Fragment implements View.OnClickListene
             position = bundle.getInt("position");
             initPlayer(position);
         }
-        seekBar.setProgress(0);
+
 
         return v;
     }
